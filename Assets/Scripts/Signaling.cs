@@ -9,21 +9,28 @@ public class Signaling : MonoBehaviour
 
     private float _minVoluve = 0;
     private float _maxVoluve = 1;
+    private bool _isActive;
 
     private void Start()
     {
         _audioSource.volume = _minVoluve;
+    }
+
+    public void StartSignaling()
+    {
         _audioSource.Play();
-    }
+        StopAllCoroutines();
 
-    private void OnTriggerEnter(Collider other)
-    {
-        StartCoroutine(IncreaseSound());
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        StartCoroutine(ReductionSound());
+        if (_isActive == false)
+        {
+            StartCoroutine(IncreaseSound());
+            _isActive = true;
+        }
+        else
+        {
+            StartCoroutine(ReductionSound());
+            _isActive = false;
+        }
     }
 
     private IEnumerator IncreaseSound()
@@ -42,5 +49,7 @@ public class Signaling : MonoBehaviour
             _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _minVoluve, _volumeDelta * Time.deltaTime);
             yield return null;
         }
+
+        _audioSource.Stop();
     }
 }
