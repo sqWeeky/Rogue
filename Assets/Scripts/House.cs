@@ -15,13 +15,11 @@ public class House : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other == _playerCollider)
-            _signaling.StartSignaling();
+        _signaling.FadeIn();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other == _playerCollider)
-            _signaling.StartSignaling();
+        _signaling.FadeOut();
     }
 }

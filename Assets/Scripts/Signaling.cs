@@ -5,57 +5,50 @@ using UnityEngine;
 public class Signaling : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private float _volumeDelta;
+    [SerializeField] private float _rateChangeOfSound;
 
-    private float _minVoluve = 0;
-    private float _maxVoluve = 1;
-    private bool _isActive;
+    private float _minVoluve = 0f;
+    private float _maxVoluve = 1f;
+    private Coroutine _coroutine;
+    private float _targetValue;
+    
+    public void FadeIn()
+    {
+        _targetValue = _maxVoluve;      
+
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(ChangeVolumeAudioSource());
+    }
+
+    public void FadeOut()
+    {
+        _targetValue = _minVoluve;
+
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(ChangeVolumeAudioSource());
+    }
 
     private void Start()
     {
-        _audioSource.volume = _minVoluve;        
+        _audioSource.volume = _minVoluve;
     }
 
-    public void StartSignaling()
+    private IEnumerator ChangeVolumeAudioSource()
     {
-        if (!_audioSource.isPlaying)
+        if (_audioSource.isPlaying == false)
             _audioSource.Play();
 
-        StopAllCoroutines();
-
-        if (_isActive == false)
+        while (_audioSource.volume != _targetValue)
         {
-            StartCoroutine(IncreaseSound());
-            _isActive = true;
-            return;
-        }
-        else
-        {
-            StartCoroutine(ReductionSound());
-            _isActive = false;
-        }
-    }
-
-    private IEnumerator IncreaseSound()
-    {
-        while (_audioSource.volume < _maxVoluve)
-        {
-            ChangeVolume(_maxVoluve);
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
-    private IEnumerator ReductionSound()
-    {
-        while (_audioSource.volume > _minVoluve)
-        {
-            ChangeVolume(_minVoluve);
-            yield return new WaitForEndOfFrame();
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _targetValue, _rateChangeOfSound * Time.deltaTime);
+            yield return null;
         }
 
-        _audioSource.Stop();
-    }
-
-    private void ChangeVolume(float value)
-        => _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, value, _volumeDelta * Time.deltaTime);
+        if (_audioSource.volume == 0)
+            _audioSource.Stop();
+    }    
 }

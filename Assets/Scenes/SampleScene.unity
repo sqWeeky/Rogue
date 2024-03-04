@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 467358074}
-  _volumeDelta: 0.3
+  _rateChangeOfSound: 0.5
 --- !u!82 &467358074
 AudioSource:
   m_ObjectHideFlags: 0
