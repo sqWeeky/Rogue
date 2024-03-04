@@ -13,18 +13,21 @@ public class Signaling : MonoBehaviour
 
     private void Start()
     {
-        _audioSource.volume = _minVoluve;
+        _audioSource.volume = _minVoluve;        
     }
 
     public void StartSignaling()
     {
-        _audioSource.Play();
+        if (!_audioSource.isPlaying)
+            _audioSource.Play();
+
         StopAllCoroutines();
 
         if (_isActive == false)
         {
             StartCoroutine(IncreaseSound());
             _isActive = true;
+            return;
         }
         else
         {
@@ -37,8 +40,8 @@ public class Signaling : MonoBehaviour
     {
         while (_audioSource.volume < _maxVoluve)
         {
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _maxVoluve, _volumeDelta * Time.deltaTime);
-            yield return null;
+            ChangeVolume(_maxVoluve);
+            yield return new WaitForEndOfFrame();
         }
     }
 
@@ -46,10 +49,14 @@ public class Signaling : MonoBehaviour
     {
         while (_audioSource.volume > _minVoluve)
         {
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _minVoluve, _volumeDelta * Time.deltaTime);
-            yield return null;
+            ChangeVolume(_minVoluve);
+            yield return new WaitForEndOfFrame();
         }
 
         _audioSource.Stop();
     }
+
+    private void ChangeVolume(float value)
+        => _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, value, _volumeDelta * Time.deltaTime);
+
 }
