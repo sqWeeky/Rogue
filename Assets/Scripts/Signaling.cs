@@ -58,5 +58,4 @@ public class Signaling : MonoBehaviour
 
     private void ChangeVolume(float value)
         => _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, value, _volumeDelta * Time.deltaTime);
-
 }
