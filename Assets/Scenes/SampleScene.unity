@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 467358074}
   - component: {fileID: 467358073}
   m_Layer: 0
-  m_Name: Signaling
+  m_Name: Alarm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -799,7 +799,7 @@ Transform:
   m_GameObject: {fileID: 1215525416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.57, y: 1.02, z: 3.37}
+  m_LocalPosition: {x: -4.57, y: 1.22, z: 3.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0349e2edae74dab4b8fa49b85f317332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _signaling: {fileID: 467358073}
+  _alarm: {fileID: 0}
 --- !u!1 &1496694120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1051,7 @@ GameObject:
   - component: {fileID: 1869720760}
   - component: {fileID: 1869720759}
   - component: {fileID: 1869720758}
-  - component: {fileID: 1869720757}
+  - component: {fileID: 1869720763}
   m_Layer: 0
   m_Name: Rogue
   m_TagString: Rogue
@@ -1059,23 +1059,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1869720757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869720756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0610f998c799cab489ee6107a1b90a39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 7
-  _timer: 3
-  _moveSpots:
-  - {fileID: 623354878}
-  - {fileID: 912855770}
 --- !u!54 &1869720758
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1191,6 +1174,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1869720763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869720756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0610f998c799cab489ee6107a1b90a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
+  _timer: 3
+  _moveSpots:
+  - {fileID: 623354878}
+  - {fileID: 912855770}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

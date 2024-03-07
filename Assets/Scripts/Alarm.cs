@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class Signaling : MonoBehaviour
+public class Alarm : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private float _rateChangeOfSound;
@@ -12,15 +12,18 @@ public class Signaling : MonoBehaviour
     private Coroutine _coroutine;
     private float _targetValue;
 
-    private void Start()    
-        =>_audioSource.volume = _minVoluve;    
+    private void Start()
+        => _audioSource.volume = _minVoluve;
 
-    public void StartSignaling()
+    public void TurnOn()
+        => Work(_maxVoluve);
+
+    public void TurnOff()
+       => Work(_minVoluve);
+
+    private void Work(float volume)
     {
-        if (_targetValue == _minVoluve)
-            _targetValue = _maxVoluve;
-        else
-            _targetValue = _minVoluve;
+        _targetValue = volume;
 
         if (_coroutine != null)
             StopCoroutine(_coroutine);
@@ -41,5 +44,5 @@ public class Signaling : MonoBehaviour
 
         if (_audioSource.volume == 0)
             _audioSource.Stop();
-    }    
+    }
 }
