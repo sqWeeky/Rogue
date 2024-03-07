@@ -11,30 +11,21 @@ public class Signaling : MonoBehaviour
     private float _maxVoluve = 1f;
     private Coroutine _coroutine;
     private float _targetValue;
-    
-    public void FadeIn()
+
+    private void Start()    
+        =>_audioSource.volume = _minVoluve;    
+
+    public void StartSignaling()
     {
-        _targetValue = _maxVoluve;      
+        if (_targetValue == _minVoluve)
+            _targetValue = _maxVoluve;
+        else
+            _targetValue = _minVoluve;
 
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
         _coroutine = StartCoroutine(ChangeVolumeAudioSource());
-    }
-
-    public void FadeOut()
-    {
-        _targetValue = _minVoluve;
-
-        if (_coroutine != null)
-            StopCoroutine(_coroutine);
-
-        _coroutine = StartCoroutine(ChangeVolumeAudioSource());
-    }
-
-    private void Start()
-    {
-        _audioSource.volume = _minVoluve;
     }
 
     private IEnumerator ChangeVolumeAudioSource()
